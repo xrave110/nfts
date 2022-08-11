@@ -13,6 +13,7 @@
     "hardhat": "^2.8.3",
     "hardhat-deploy": "^0.11.12",
     "hardhat-gas-reporter": "^1.0.7",
+    "path": "^0.12.7",
     "prettier-plugin-solidity": "^1.0.0-beta.19",
     "solidity-coverage": "^0.7.18"
   },
@@ -25,6 +26,7 @@
     "coverage": "hardhat coverage"
   },
   "dependencies": {
+    "@pinata/sdk": "^1.1.26",
     "mocha": "^10.0.0"
   }
 }

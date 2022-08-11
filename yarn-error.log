@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /home/anything/.node/corepack/yarn/1.22.19/bin/yarn.js add --dev @openzeppelin
+  /usr/local/bin/node /home/anything/.node/corepack/yarn/1.22.19/bin/yarn.js add --dev @piniata/sdk
 
 PATH: 
   /home/anything/anaconda3/bin:/home/anything/anaconda3/condabin:/home/anything/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/anything/.local/bin:/home/anything/.local/bin
@@ -14,8 +14,8 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@openzeppelin: Request "https://registry.yarnpkg.com/@openzeppelin" returned a 405
-      at Request.params.callback [as _callback] (/home/anything/.node/corepack/yarn/1.22.19/lib/cli.js:66154:18)
+  Error: https://registry.yarnpkg.com/@piniata%2fsdk: Not found
+      at Request.params.callback [as _callback] (/home/anything/.node/corepack/yarn/1.22.19/lib/cli.js:66145:18)
       at Request.self.callback (/home/anything/.node/corepack/yarn/1.22.19/lib/cli.js:140890:22)
       at Request.emit (node:events:390:28)
       at Request.<anonymous> (/home/anything/.node/corepack/yarn/1.22.19/lib/cli.js:141862:10)
@@ -30,10 +30,11 @@ npm manifest:
   {
     "name": "hardhat-project",
     "devDependencies": {
-      "@chainlink/contracts": "^0.3.1",
+      "@chainlink/contracts": "^0.4.2",
       "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers",
       "@nomiclabs/hardhat-etherscan": "^3.0.0",
       "@nomiclabs/hardhat-waffle": "^2.0.2",
+      "@openzeppelin/contracts": "^4.7.2",
       "chai": "^4.3.4",
       "dotenv": "^14.2.0",
       "ethereum-waffle": "^3.4.0",
@@ -65,10 +66,12 @@ Lockfile:
   # yarn lockfile v1
   
   
-  "@chainlink/contracts@^0.3.1":
-    version "0.3.1"
-    resolved "https://registry.yarnpkg.com/@chainlink/contracts/-/contracts-0.3.1.tgz#a1a2e1b179a6ce6a9b5b16992f6202918110ef5c"
-    integrity sha512-A8DRvmfNCwLS1iduPPj7wNAZJMe9/ZimMhoHhbbBiq+7Vq/HFjiNcdoQ5NinFdXD5aTsoNUGG5pAYKj7YMpm9A==
+  "@chainlink/contracts@^0.4.2":
+    version "0.4.2"
+    resolved "https://registry.yarnpkg.com/@chainlink/contracts/-/contracts-0.4.2.tgz#2928a35e8da94664b8ffeb8f5a54b1a3f14d5b3f"
+    integrity sha512-wVI/KZ9nIH0iqoebVxYrZfNVWO23vwds1UrHdbF+S0JwyixtT+54xYGlot723jCrAeBeQHsDRQXnEhhbUEHpgQ==
+    dependencies:
+      "@eth-optimism/contracts" "^0.5.21"
   
   "@ensdomains/ens@^0.4.4":
     version "0.4.5"
@@ -85,6 +88,29 @@ Lockfile:
     version "0.2.4"
     resolved "https://registry.yarnpkg.com/@ensdomains/resolver/-/resolver-0.2.4.tgz#c10fe28bf5efbf49bff4666d909aed0265efbc89"
     integrity sha512-bvaTH34PMCbv6anRa9I/0zjLJgY4EuznbEMgbV77JBCQ9KNC46rzi0avuxpOfu+xDjPEtSFGqVEOr5GlUSGudA==
+  
+  "@eth-optimism/contracts@^0.5.21":
+    version "0.5.32"
+    resolved "https://registry.yarnpkg.com/@eth-optimism/contracts/-/contracts-0.5.32.tgz#3cc1ba823e9e71662954321025267522b0e928b8"
+    integrity sha512-wHcilwbQGxllfl43Has5l8PAOghtukRgwdhnQqrdR+XshHwlgnNH5lE5/48BjqSJDykxovmqP9rjQvHEWd5qSw==
+    dependencies:
+      "@eth-optimism/core-utils" "0.9.3"
+      "@ethersproject/abstract-provider" "^5.6.1"
+      "@ethersproject/abstract-signer" "^5.6.2"
+  
+  "@eth-optimism/core-utils@0.9.3":
+    version "0.9.3"
+    resolved "https://registry.yarnpkg.com/@eth-optimism/core-utils/-/core-utils-0.9.3.tgz#40c0271f815af68e0a4715e97a045a96462df7b6"
+    integrity sha512-b3V8qBgM0e85wdp3CNdJ6iSUvjT2k86F9oCAYeCIXQcQ6+EPaetjxP0T6ct6jLVepnJjoPRlW/lvWslKk1UBGg==
+    dependencies:
+      "@ethersproject/abstract-provider" "^5.6.1"
+      "@ethersproject/properties" "^5.6.0"
+      "@ethersproject/providers" "^5.6.8"
+      "@ethersproject/transactions" "^5.6.2"
+      "@ethersproject/web" "^5.6.1"
+      bufio "^1.0.7"
+      chai "^4.3.4"
+      ethers "^5.6.8"
   
   "@ethereum-waffle/chai@^3.4.0":
     version "3.4.1"
@@ -643,7 +669,7 @@ Lockfile:
       bech32 "1.1.4"
       ws "7.4.6"
   
-  "@ethersproject/providers@5.6.8":
+  "@ethersproject/providers@5.6.8", "@ethersproject/providers@^5.6.8":
     version "5.6.8"
     resolved "https://registry.yarnpkg.com/@ethersproject/providers/-/providers-5.6.8.tgz#22e6c57be215ba5545d3a46cf759d265bb4e879d"
     integrity sha512-Wf+CseT/iOJjrGtAOf3ck9zS7AgPmr2fZ3N97r4+YXN3mBePTG2/bJ8DApl9mVwYL+RpYbNxMEkEp4mPGdwG/w==
@@ -965,6 +991,11 @@ Lockfile:
     dependencies:
       "@types/sinon-chai" "^3.2.3"
       "@types/web3" "1.0.19"
+  
+  "@openzeppelin/contracts@^4.7.2":
+    version "4.7.2"
+    resolved "https://registry.yarnpkg.com/@openzeppelin/contracts/-/contracts-4.7.2.tgz#7587416fe2d35abf574193515b8971bfe9f64bc7"
+    integrity sha512-4n/JL9izql8303mPqPdubuna/DWEMbmOzWYUWyCPhjhiEr2w3nQrjE7vZz1fBF+wzzP6dZbIcsgqACk53c9FGA==
   
   "@resolver-engine/core@^0.3.3":
     version "0.3.3"
@@ -2474,6 +2505,11 @@ Lockfile:
     dependencies:
       node-gyp-build "^4.3.0"
   
+  bufio@^1.0.7:
+    version "1.0.7"
+    resolved "https://registry.yarnpkg.com/bufio/-/bufio-1.0.7.tgz#b7f63a1369a0829ed64cc14edf0573b3e382a33e"
+    integrity sha512-bd1dDQhiC+bEbEfg56IdBv7faWa6OipMs/AFFFvtFnB3wAYjlwQpQRZ0pm6ZkgtfL0pILRXhKxOiQj6UzoMR7A==
+  
   bytes@3.1.1:
     version "3.1.1"
     resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.1.1.tgz#3f018291cb4cbad9accb6e6970bca9c8889e879a"
@@ -3964,7 +4000,7 @@ Lockfile:
       "@ethersproject/web" "5.5.1"
       "@ethersproject/wordlists" "5.5.0"
   
-  ethers@^5.6.9:
+  ethers@^5.6.8, ethers@^5.6.9:
     version "5.6.9"
     resolved "https://registry.yarnpkg.com/ethers/-/ethers-5.6.9.tgz#4e12f8dfcb67b88ae7a78a9519b384c23c576a4d"
     integrity sha512-lMGC2zv9HC5EC+8r429WaWu3uWJUCgUCt8xxKCFqkrFuBDZXDYIdzDUECxzjf2BMF8IVBByY1EBoGSL3RTm8RA==
