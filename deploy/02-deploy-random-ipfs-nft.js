@@ -1,10 +1,22 @@
 const { network, ethers } = require("hardhat")
 const { networkConfig, developmentChains } = require("../helper-hardhat-config")
 const { verify } = require("../utils/verify")
-const { storageImages, storeImages } = require("../utils/uploadToPinata")
+const { storeImages, storeTokenUriMetadata } = require("../utils/uploadToPinata")
 
 
 const imagesLocation = "./images/randomNfts"
+
+const metadataTemplate = {
+    name: "",
+    description: "",
+    image: "",
+    attributes: [
+        {
+            trait_type: "Cuteness",
+            value: 100,
+        }
+    ]
+}
 
 module.exports = async function ({ getNamedAccounts, deployments }) {
     const { deploy, log } = deployments
@@ -34,7 +46,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     }
 
     log("-----------------------------------")
-    await storeImages(imagesLocation)
+    // temporary commented out await storeImages(imagesLocation)
     // const args = [vrfCoordinatorV2Address,
     //     subscriptionId,
     //     networkConfig[chainId].gasLane,
@@ -47,6 +59,23 @@ async function handleTokenUris() {
     tokenUris = []
     // store the image in IPFS
     // store metadata in IPFS
+
+    const { responses: imageUploadResponses, files } = await storeImages(imagesLocation)
+    for (imageUploadResponsesIdx in imageUploadResponses) {
+
+        //create metadata
+        //upload metadata
+        let tokenUriMetadata = { ...metadataTemplate } // copy, unpacking syntax
+        tokenUriMetadata.name = files[imageUploadResponsesIdx].replace(".png", "")
+        tokenUriMetadata.description = `An adorable ${tokenUriMetadata.name} pup`
+        tokenUriMetadata.image = `ipfs://${imageUploadResponses[imageUploadResponsesIdx].IpfsHash}`
+        console.log(`Uploading ${tokenUriMetadata.name}...`)
+        //store the JSON to pinata / IPFS
+        const metadataUploadResponse = await storeTokenUriMetadata(tokenUriMetadata)
+        tokenUris.push(`ipfs://${metadataUploadResponse.IpfsHash}`)
+    }
+    console.log("Token URIs Uploaded! They are:")
+    console.log(tokenUris)
     return tokenUris
 }
 
